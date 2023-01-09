@@ -2,32 +2,35 @@ var express = require("express")
 var app = express()
 var cors = require('cors');
 let projectcollection;
-
+let dbConnect = require("./public/css/controller/routes/models/dbConnect");
+let projectsRoute = require('./public/css/controller/routes/projectRoute')
+app.use('/api/projects',projectsRoute)
 app.use(express.static(__dirname+'/public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
-//mongodb connection...
-const { MongoClient } = require('mongodb');
+
+// //mongoDb connection...
+// const { MongoClient } = require('mongodb');
 
 
-// Connection URL
-const url = 'mongodb+srv://vinithmongo:vinith@cluster0.myzfqd5.mongodb.net/?retryWrites=true&w=majority'
-const client = new MongoClient(url);
+// // Connection URL
+// const url = 'mongodb+srv://vinithmongo:vinith@cluster0.myzfqd5.mongodb.net/?retryWrites=true&w=majority'
+// const client = new MongoClient(url);
 
 
-const createCollection = (collectionName) => {
-client.connect((err,db) => {
-projectcollection = client.db().collection(collectionName);
-if(!err){
-console.log('Mongodb connected')
-}
-else{
-    console.log("DB Error: ", err);
-    process.exit(1);
-}
-})
-}
+// const createCollection = (collectionName) => {
+// client.connect((err,db) => {
+// projectcollection = client.db().collection(collectionName);
+// if(!err){
+// console.log('Mongodb connected')
+// }
+// else{
+//     console.log("DB Error: ", err);
+//     process.exit(1);
+// }
+// })
+// }
 //insert project...
 const insertProjects = (project,callback) => {
     projectcollection.insert(project,callback);
@@ -46,20 +49,6 @@ app.post('/api/projects',(req,res) => {
         }
     })
 })
-const cardList = [
-    {
-        title: "Kitten 2",
-        image: "../images/kitten-1.jpg",
-        link: "About Kitten 2",
-        desciption: "Demo desciption about kitten 2"
-    },
-    {
-        title: "Kitten 3",
-        image: "../images/kitten-2.jpg",
-        link: "About Kitten 3",
-        desciption: "Demo desciption about kitten 3"
-    }
-]
 
 //get project...​
 
@@ -83,6 +72,6 @@ var port = process.env.port || 3000;
 
 app.listen(port,()=>{
     console.log("App listening to: http://localhost:"+port)
-    createCollection('pets')
+    // createCollection('pets')
 
 })
