@@ -1,31 +1,32 @@
-let client = require("../dbconnect");
-let projectCollection;
+let projectmodule = require("../controller/routes/models/project")
+// let client = require("../dbconnect");
+// let projectCollection;
 
 
-setTimeout(() => {
-    //  projectCollection = client.MongoClient.db().collection("projects");
-    // projectCollection = client.createCollection("projects")
-     console.log(db);
-     if (db){
-        projectCollection = db.createCollection("projects")
-     }
-}, 2000)
-const insertProjects = (project,callback) => {
-    projectCollection.insert(project,callback);
-}
-//get project...​
+// setTimeout(() => {
+//     //  projectCollection = client.MongoClient.db().collection("projects");
+//     // projectCollection = client.createCollection("projects")
+//      console.log(db);
+//      if (db){
+//         projectCollection = db.createCollection("projects")
+//      }
+// }, 2000)
+// const insertProjects = (project,callback) => {
+//     projectCollection.insert(project,callback);
+// }
+// //get project...​
 
-const getProjects = (callback) => {
-    projectcollection.find({}).toArray(callback);
-}
+// const getProjects = (callback) => {
+//     projectcollection.find({}).toArray(callback);
+// }
 
 
 //create project...
-const createproject = (req, res) => {
+const createprojects = (req, res) => {
     console.log("New Project added", req.body)
     var newProject = req.body;
 
-    insertProjects(newProject,(err,result) => {
+    projectmodule.insertProjects(newProject,(err,result) => {
         if(err) {
             res.json({statusCode: 400, message: err})
         }
@@ -36,8 +37,8 @@ const createproject = (req, res) => {
 }
 
 //retrieve project...
-const retrieveprojects = (res, req) => {
-getProjects((err,result) => {
+const retrieveprojects = (req, res) => {
+projectmodule.getProjects((err,result) => {
     if(err) {
         res.json({statusCode: 400, message: err})
     }
@@ -46,3 +47,4 @@ getProjects((err,result) => {
     }
 })
 }
+module.exports = {retrieveprojects, createprojects}

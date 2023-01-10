@@ -1,9 +1,8 @@
 var express = require("express")
 var router = express.Router();
 let client = require("./models/dbConnect");
- 
 let projectCollection;
-
+let controller = require("../projectcontroller")
 setTimeout(() => {
     //  projectCollection = client.MongoClient.db().collection("projects");
     // projectCollection = client.createCollection("projects")
@@ -17,7 +16,8 @@ const insertProjects = (project,callback) => {
     projectCollection.insert(project,callback);
 }
 //post api...
-router.post('/api/projects',(req,res) => {
+router.post('/',(req,res) => {
+    controller.createprojects(req,res)
     console.log("New Project added", req.body)
     var newProject = req.body;
 
@@ -34,10 +34,11 @@ router.post('/api/projects',(req,res) => {
 //get project...​
 
 const getProjects = (callback) => {
-    projectcollection.find({}).toArray(callback);
+    projectCollection.find({}).toArray(callback);
 }
 
-router.get('/api/projects',(req,res) => {
+router.get('/',(req,res) => {
+    controller.retrieveprojects(req,res)
     getProjects((err,result) => {
         if(err) {
             res.json({statusCode: 400, message: err})
