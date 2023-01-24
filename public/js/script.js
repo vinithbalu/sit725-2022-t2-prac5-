@@ -36,14 +36,20 @@ const submitForm = () => {
 }
 //ajax function
 const addProjectToApp = (project) => {
-    $.ajax({
-        url: '/api/projects',
-        data: project,
-        type: 'POST',
-        success: (result) => {
-            alert(result.message);
-            location.reload(); // it automatically reloads the page ​
-
+    fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            'accept': 'application/json'
+        },
+        body: JSON.stringify(project)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        if (data.statusCode === 200) {
+            alert("Record added")
+            window.location.reload()
         }
     })
 }

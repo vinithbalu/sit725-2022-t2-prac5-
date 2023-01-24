@@ -1,4 +1,4 @@
-let projectmodule = require("../controller/routes/models/project")
+let projectmodule = require("./routes/models/project")
 // let client = require("../dbconnect");
 // let projectCollection;
 

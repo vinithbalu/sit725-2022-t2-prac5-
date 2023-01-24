@@ -2,13 +2,14 @@ var express = require("express")
 var app = express()
 var cors = require('cors');
 let projectcollection;
-let dbConnect = require("./public/css/controller/routes/models/dbConnect");
-let projectsRoute = require('./public/css/controller/routes/projectRoute')
-app.use('/api/projects',projectsRoute)
+let dbConnect = require("./dbConnect");
+let projectsRoute = require('./controller/routes/projectRoute')
+
 app.use(express.static(__dirname+'/public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
+app.use('/api/projects',projectsRoute)
 
 // //mongoDb connection...
 // const { MongoClient } = require('mongodb');
