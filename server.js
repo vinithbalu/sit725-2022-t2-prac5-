@@ -3,7 +3,7 @@ var app = express()
 var cors = require('cors');
 let projectcollection;
 let dbConnect = require("./dbConnect");
-let projectsRoute = require('./controller/routes/projectRoute')
+let projectsRoute = require('./routes/projectRoute')
 
 app.use(express.static(__dirname+'/public'))
 app.use(express.json());

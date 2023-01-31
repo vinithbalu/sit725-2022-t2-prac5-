@@ -1,8 +1,8 @@
 var express = require("express")
 var router = express.Router();
-let client = require("../../dbConnect");
+let client = require("../dbConnect");
 let projectCollection;
-let controller = require("../projectcontroller")
+let controller = require("../controller/projectcontroller")
 setTimeout(() => {
     //  projectCollection = client.MongoClient.db().collection("projects");
     // projectCollection = client.createCollection("projects")
